@@ -1,7 +1,5 @@
+import { SignUpView } from '@/module/auth/views/sign-up-view'
+
 export default function SignUpPage() {
-	return (
-		<div>
-			<h1>Sign Up</h1>
-		</div>
-	)
+	return <SignUpView />
 }

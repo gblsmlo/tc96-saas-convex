@@ -1,7 +1,5 @@
+import { ForgotPasswordView } from '@/module/auth/views/forgot-password-view'
+
 export default function ForgotPasswordPage() {
-	return (
-		<div>
-			<h1>Forgot Password</h1>
-		</div>
-	)
+	return <ForgotPasswordView />
 }

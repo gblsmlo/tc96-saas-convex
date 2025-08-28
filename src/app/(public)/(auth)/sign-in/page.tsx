@@ -1,7 +1,5 @@
+import { SignInView } from '@/module/auth/views/sign-in-view'
+
 export default function SignInPage() {
-	return (
-		<div>
-			<h1>Sign In</h1>
-		</div>
-	)
+	return <SignInView />
 }
