@@ -1,122 +1,122 @@
 # SaaS Starter Kit
 
-Um starter kit completo para aplicações SaaS construído com Next.js 15, TypeScript, Tailwind CSS e Convex.
+A complete starter kit for SaaS applications built with Next.js 15, TypeScript, Tailwind CSS, and Convex.
 
-## 🚀 Tecnologias Incluídas
+## 🚀 Technologies Included
 
-- **Next.js 15** - Framework React com App Router
-- **TypeScript** - Tipagem estática
-- **Tailwind CSS** - Framework CSS utilitário
-- **Shadcn/ui** - Componentes UI modernos
-- **Convex** - Backend-as-a-Service com banco de dados em tempo real
-- **Biome** - Linter e formatador de código
-- **Husky** - Git hooks para qualidade de código
-- **Commitlint** - Padronização de commits convencionais
+- **Next.js 15** - React framework with App Router
+- **TypeScript** - Static typing
+- **Tailwind CSS** - Utility-first CSS framework
+- **Shadcn/ui** - Modern UI components
+- **Convex** - Backend-as-a-Service with real-time database
+- **Biome** - Code linter and formatter
+- **Husky** - Git hooks for code quality
+- **Commitlint** - Conventional commit standardization
 
-## 📁 Estrutura do Projeto
+## 📁 Project Structure
 
 ```
 src/
 ├── app/
-│   ├── (auth)/              # Route group para autenticação
-│   │   ├── sign-in/         # Página de login
-│   │   ├── sign-up/         # Página de registro
-│   │   └── forgot-password/ # Página de recuperação de senha
-│   ├── (public)/            # Route group para páginas públicas
-│   │   ├── about/           # Página sobre
-│   │   └── page.tsx         # Página inicial
+│   ├── (auth)/              # Route group for authentication
+│   │   ├── sign-in/         # Login page
+│   │   ├── sign-up/         # Registration page
+│   │   └── forgot-password/ # Password recovery page
+│   ├── (public)/            # Route group for public pages
+│   │   ├── about/           # About page
+│   │   └── page.tsx         # Home page
 │   ├── ConvexClientProvider.tsx
 │   ├── layout.tsx
 │   └── globals.css
 ├── lib/
-│   └── utils.ts             # Utilitários (cn function)
+│   └── utils.ts             # Utilities (cn function)
 convex/
-├── _generated/              # Arquivos gerados pelo Convex
-└── tasks.ts                 # Exemplo de query Convex
+├── _generated/              # Convex generated files
+└── tasks.ts                 # Convex query example
 ```
 
-## 🛠️ Configuração e Instalação
+## 🛠️ Setup and Installation
 
-### 1. Clone o repositório
+### 1. Clone the repository
 ```bash
 git clone <repository-url>
 cd tc96-saas-starter
 ```
 
-### 2. Instale as dependências
+### 2. Install dependencies
 ```bash
 npm install
 ```
 
-### 3. Configure o Convex
+### 3. Configure Convex
 ```bash
-# Inicie o Convex (requer conta)
+# Initialize Convex (requires account)
 npx convex dev
 ```
 
-### 4. Configure as variáveis de ambiente
-Atualize o arquivo `.env.local` com suas configurações do Convex:
+### 4. Configure environment variables
+Update the `.env.local` file with your Convex settings:
 ```env
 NEXT_PUBLIC_CONVEX_URL=https://your-deployment.convex.cloud
 CONVEX_DEPLOYMENT=your-deployment-name
 ```
 
-### 5. Execute o projeto
+### 5. Run the project
 ```bash
 npm run dev
 ```
 
-O projeto estará disponível em `http://localhost:3000`
+The project will be available at `http://localhost:3000`
 
-## 📝 Scripts Disponíveis
+## 📝 Available Scripts
 
-- `npm run dev` - Inicia o servidor de desenvolvimento
-- `npm run build` - Gera a build de produção
-- `npm run start` - Inicia o servidor de produção
-- `npm run lint` - Executa o linter
-- `npm run lint:fix` - Executa o linter e corrige problemas automaticamente
-- `npm run format` - Formata o código
+- `npm run dev` - Start development server
+- `npm run build` - Generate production build
+- `npm run start` - Start production server
+- `npm run lint` - Run linter
+- `npm run lint:fix` - Run linter and fix issues automatically
+- `npm run format` - Format code
 
-## 🔧 Ferramentas de Desenvolvimento
+## 🔧 Development Tools
 
 ### Biome
-Configurado para linting e formatação de código com regras otimizadas para React e TypeScript.
+Configured for code linting and formatting with optimized rules for React and TypeScript.
 
 ### Husky
-Configura git hooks para:
-- **pre-commit**: Executa linting e formatação antes de cada commit
-- **commit-msg**: Valida mensagens de commit usando Commitlint
+Sets up git hooks for:
+- **pre-commit**: Runs linting and formatting before each commit
+- **commit-msg**: Validates commit messages using Commitlint
 
 ### Commitlint
-Enforça o padrão de commits convencionais:
-- `feat:` - Nova funcionalidade
-- `fix:` - Correção de bug
-- `docs:` - Documentação
-- `style:` - Formatação
-- `refactor:` - Refatoração
-- `test:` - Testes
-- `chore:` - Tarefas de manutenção
+Enforces conventional commit standards:
+- `feat:` - New feature
+- `fix:` - Bug fix
+- `docs:` - Documentation
+- `style:` - Formatting
+- `refactor:` - Refactoring
+- `test:` - Tests
+- `chore:` - Maintenance tasks
 
-## 🎨 Páginas Incluídas
+## 🎨 Included Pages
 
-### Páginas Públicas (`(public)`)
-- **Home** (`/`) - Página inicial com demonstração das tecnologias
-- **About** (`/about`) - Página sobre com informações da empresa
+### Public Pages (`(public)`)
+- **Home** (`/`) - Home page with technology demonstration
+- **About** (`/about`) - About page with company information
 
-### Páginas de Autenticação (`(auth)`)
-- **Sign In** (`/sign-in`) - Página de login
-- **Sign Up** (`/sign-up`) - Página de registro
-- **Forgot Password** (`/forgot-password`) - Página de recuperação de senha
+### Authentication Pages (`(auth)`)
+- **Sign In** (`/sign-in`) - Login page
+- **Sign Up** (`/sign-up`) - Registration page
+- **Forgot Password** (`/forgot-password`) - Password recovery page
 
-## 🚀 Próximos Passos
+## 🚀 Next Steps
 
-1. **Configure o Convex adequadamente** executando `npx convex dev`
-2. **Implemente a lógica de autenticação** nas páginas de auth
-3. **Adicione mais componentes Shadcn/ui** conforme necessário
-4. **Configure um provedor de autenticação** (Auth0, Clerk, etc.)
-5. **Adicione testes** com Jest e Testing Library
-6. **Configure CI/CD** para deploy automático
+1. **Configure Convex properly** by running `npx convex dev`
+2. **Implement authentication logic** in auth pages
+3. **Add more Shadcn/ui components** as needed
+4. **Configure an authentication provider** (Auth0, Clerk, etc.)
+5. **Add tests** with Jest and Testing Library
+6. **Set up CI/CD** for automatic deployment
 
-## 📄 Licença
+## 📄 License
 
-Este projeto está sob a licença MIT.
+This project is under the MIT license.
