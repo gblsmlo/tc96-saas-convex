@@ -17,10 +17,6 @@ import {
  * - All operations are logged for audit trail
  */
 
-// ============================================================================
-// MUTATIONS
-// ============================================================================
-
 /**
  * Create a new product
  * Requires: User must be member of an account
@@ -52,10 +48,8 @@ export const createProduct = mutation({
 	handler: async (ctx, args) => {
 		const { user, account } = await getCurrentUserAccount(ctx)
 
-		// Validate account limits
 		await validateAccountLimits(ctx, account._id, 'products')
 
-		// Check if slug is unique within the account
 		const existingProduct = await ctx.db
 			.query('products')
 			.withIndex('by_slug', (q) =>
@@ -69,7 +63,6 @@ export const createProduct = mutation({
 			)
 		}
 
-		// Validate price
 		if (args.price < 0) {
 			throw new ConvexError('Price must be greater than or equal to 0')
 		}
@@ -80,7 +73,6 @@ export const createProduct = mutation({
 			)
 		}
 
-		// Validate inventory
 		if (args.trackInventory && args.inventoryQuantity === undefined) {
 			throw new ConvexError(
 				'Inventory quantity is required when tracking inventory',
@@ -115,7 +107,6 @@ export const createProduct = mutation({
 			updatedAt: now,
 		})
 
-		// Log activity
 		await logActivity(ctx, 'product.created', 'product', productId, {
 			productName: args.name,
 			productSlug: args.slug,
@@ -154,13 +145,10 @@ export const updateProduct = mutation({
 		metaDescription: v.optional(v.string()),
 	},
 	handler: async (ctx, args) => {
-		// Verificar permissões e obter produto atual
 		const { user, product } = await requireProductAccess(ctx, args.productId)
 
-		// Extrair apenas os campos de atualização dos args
 		const { productId: _, ...updates } = args
 
-		// Verificar se há mudanças reais
 		const hasChanges = Object.keys(updates).some(
 			(key) =>
 				updates[key as keyof typeof updates] !== undefined &&
@@ -169,11 +157,9 @@ export const updateProduct = mutation({
 		)
 
 		if (!hasChanges) {
-			// Retornar produto atual se não há mudanças
 			return product
 		}
 
-		// Validar slug único se estiver sendo alterado
 		if (updates.slug && updates.slug !== product.slug) {
 			const existingProduct = await ctx.db
 				.query('products')
@@ -189,12 +175,10 @@ export const updateProduct = mutation({
 			}
 		}
 
-		// Validar preço
 		if (updates.price !== undefined && updates.price < 0) {
 			throw new ConvexError('Price must be greater than or equal to 0')
 		}
 
-		// Validar preço comparativo
 		const finalPrice = updates.price ?? product.price
 		const finalCompareAtPrice = updates.compareAtPrice ?? product.compareAtPrice
 
@@ -204,7 +188,6 @@ export const updateProduct = mutation({
 			)
 		}
 
-		// Validar inventário
 		const finalTrackInventory = updates.trackInventory ?? product.trackInventory
 		const finalInventoryQuantity =
 			updates.inventoryQuantity ?? product.inventoryQuantity
@@ -215,7 +198,6 @@ export const updateProduct = mutation({
 			)
 		}
 
-		// Criar objeto atualizado usando spread operator
 		const updatedProduct = {
 			...product,
 			...updates,
@@ -223,10 +205,8 @@ export const updateProduct = mutation({
 			updatedAt: Date.now(),
 		}
 
-		// Aplicar atualização
 		await ctx.db.patch(args.productId, updatedProduct)
 
-		// Log da atividade
 		const updatedFields = Object.keys(updates).filter(
 			(key) => updates[key as keyof typeof updates] !== undefined,
 		)
@@ -309,7 +289,6 @@ export const updateProductInventory = mutation({
 			updatedAt: Date.now(),
 		})
 
-		// Log activity
 		await logActivity(
 			ctx,
 			'product.inventory_updated',
