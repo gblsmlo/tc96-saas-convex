@@ -31,7 +31,7 @@
   if (inventory < 0) {
     throw new Error("Invalid inventory");
   }
-  
+
   // GOOD: Self-documenting code
   if (hasNegativeInventory(inventory)) {
     throw new Error("Inventory cannot be negative");
@@ -43,7 +43,7 @@
   // BAD
   // Set user name
   user.name = "John";
-  
+
   // GOOD
   user.name = "John";
   ```
@@ -151,12 +151,12 @@ throw new Error(`Product with ID ${productId} not found. Please verify the produ
 ```typescript
 /**
  * Calculates the total price including taxes and discounts for a product order.
- * 
+ *
  * @param basePrice - The original price of the product in cents
  * @param taxRate - The tax rate as a decimal (e.g., 0.08 for 8%)
  * @param discountPercentage - The discount percentage as a decimal (e.g., 0.15 for 15%)
  * @returns The final price in cents after applying tax and discount
- * 
+ *
  * @example
  * ```typescript
  * const finalPrice = calculateTotalPrice(10000, 0.08, 0.10);
@@ -175,50 +175,12 @@ function calculateTotalPrice(
 }
 ```
 
-## CSS and Styling Guidelines
-
-### Tailwind CSS Usage
-- **Use Tailwind CSS classes** for styling components
-- **Avoid inline styles** unless absolutely necessary
-- **Use semantic class names** when creating custom CSS classes
-- **Follow Tailwind's utility-first approach**
-
-### CSS File Organization
-- **Keep global styles minimal** - use `globals.css` only for base styles
-- **Use CSS modules** for component-specific styles when needed
-- **Organize CSS classes logically** - group related utilities together
-
-### Tailwind Configuration
-- **Configure Biome to allow Tailwind at-rules** (`@apply`, `@theme`, `@layer`)
-- **Use design tokens** from Tailwind config for consistent spacing and colors
-- **Extend Tailwind theme** for project-specific design requirements
-
-```css
-/* GOOD: Using Tailwind utilities */
-@layer base {
-  * {
-    @apply border-border outline-ring/50;
-  }
-  body {
-    @apply bg-background text-foreground;
-  }
-}
-
-/* GOOD: Custom theme configuration */
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-}
-```
-
 ## Enforcement
 
 ### Linting Rules
 - Configure ESLint/Biome to enforce English-only identifiers
 - Set up rules to detect overly simple comments
 - Use TypeScript strict mode to enforce type safety
-- **Configure Biome to allow Tailwind CSS at-rules** (`noUnknownAtRules: "off"`)
-- **Disable non-null assertion warnings** for Convex queries (`noNonNullAssertion: "off"`)
 
 ### Code Review Checklist
 - [ ] All code and comments are in English
@@ -227,8 +189,6 @@ function calculateTotalPrice(
 - [ ] Documentation exists for complex logic
 - [ ] Error messages are clear and actionable
 - [ ] Types are explicit and avoid `any`
-- [ ] CSS follows Tailwind utility-first approach
-- [ ] No linting errors or warnings
 
 ## Examples
 
@@ -254,11 +214,11 @@ function validateUserRegistrationData(userData: UserRegistrationData): boolean {
   if (!hasValidName(userData.name)) {
     return false;
   }
-  
+
   if (!hasValidEmailFormat(userData.email)) {
     return false;
   }
-  
+
   return true;
 }
 
