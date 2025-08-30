@@ -6,3 +6,7 @@ coverage
 *.config.js
 *.config.mjs
 .git
+.gitignore
+.env
+.env.test
+convex
