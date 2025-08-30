@@ -6,6 +6,8 @@ const evnSchema = z.object({
 	NEXT_PUBLIC_CONVEX_URL: z.url(),
 	NODE_ENV: z.enum(['dev', 'test', 'production']).default('dev'),
 	PORT: z.coerce.number().default(3000),
+	SUPER_ADMIN_EMAIL: z.email().default('admin@example.com'),
+	SUPER_ADMIN_PASSWORD: z.string().min(6).default('123456'),
 })
 
 const _env = evnSchema.safeParse(process.env)

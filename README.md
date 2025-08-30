@@ -55,10 +55,25 @@ npx convex dev
 ```
 
 ### 4. Configure environment variables
-Update the `.env.local` file with your Convex settings:
+Copy the example environment file and configure your settings:
+```bash
+cp .env.example .env.local
+```
+
+Update the `.env.local` file with your settings:
 ```env
-NEXT_PUBLIC_CONVEX_URL=https://your-deployment.convex.cloud
-CONVEX_DEPLOYMENT=your-deployment-name
+# Convex Configuration
+CONVEX_DEPLOY_KEY=your_convex_deploy_key_here
+CONVEX_DEPLOYMENT=your_convex_deployment_name
+NEXT_PUBLIC_CONVEX_URL=https://your-convex-url.convex.cloud
+
+# Development Configuration
+NODE_ENV=dev
+PORT=3000
+
+# Super Admin Credentials for Database Seeding
+SUPER_ADMIN_EMAIL=admin@example.com
+SUPER_ADMIN_PASSWORD=your_secure_password_here
 ```
 
 ### 5. Run the project
@@ -70,12 +85,21 @@ The project will be available at `http://localhost:3000`
 
 ## 📝 Available Scripts
 
+### Development Scripts
 - `npm run dev` - Start development server
 - `npm run build` - Generate production build
 - `npm run start` - Start production server
 - `npm run lint` - Run linter
 - `npm run lint:fix` - Run linter and fix issues automatically
 - `npm run format` - Format code
+
+### Database Seeding Scripts
+- `npx convex run seed:seedDatabase` - Populate database with complete fake data
+- `npx convex run seed:clearAllData` - Clear all database data
+- `npx convex run seed:quickSeed` - Quick seed for testing
+- `npx convex run seed:generateActivityLogs` - Generate additional activity logs
+
+For detailed seeding documentation, see [convex/README.md](./convex/README.md)
 
 ## 🔧 Development Tools
 
@@ -108,14 +132,38 @@ Enforces conventional commit standards:
 - **Sign Up** (`/sign-up`) - Registration page
 - **Forgot Password** (`/forgot-password`) - Password recovery page
 
+## 🗃️ Database Seeding
+
+This project includes a comprehensive database seeding system using Faker.js:
+
+- **Super Admin User**: Configurable via environment variables
+- **Fake Accounts**: Realistic company data
+- **Users & Products**: Generated with proper relationships
+- **Activity Logs**: Audit trail data
+
+### Quick Start with Seeding
+```bash
+# Clear existing data
+npx convex run seed:clearAllData
+
+# Populate with fake data
+npx convex run seed:seedDatabase
+```
+
+The super admin credentials are:
+- **Email**: Configured via `SUPER_ADMIN_EMAIL`
+- **Password**: Configured via `SUPER_ADMIN_PASSWORD`
+
 ## 🚀 Next Steps
 
 1. **Configure Convex properly** by running `npx convex dev`
-2. **Implement authentication logic** in auth pages
-3. **Add more Shadcn/ui components** as needed
-4. **Configure an authentication provider** (Auth0, Clerk, etc.)
-5. **Add tests** with Jest and Testing Library
-6. **Set up CI/CD** for automatic deployment
+2. **Set up environment variables** using `.env.example` as template
+3. **Seed the database** with initial data using the seeding scripts
+4. **Implement authentication logic** in auth pages
+5. **Add more Shadcn/ui components** as needed
+6. **Configure an authentication provider** (Auth0, Clerk, etc.)
+7. **Add tests** with Jest and Testing Library
+8. **Set up CI/CD** for automatic deployment
 
 ## 📄 License
 

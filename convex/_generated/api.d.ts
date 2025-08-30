@@ -17,6 +17,7 @@ import type * as accounts from "../accounts.js";
 import type * as auth from "../auth.js";
 import type * as middleware from "../middleware.js";
 import type * as products from "../products.js";
+import type * as seed from "../seed.js";
 
 /**
  * A utility for referencing Convex functions in your app's API.
@@ -31,6 +32,7 @@ declare const fullApi: ApiFromModules<{
   auth: typeof auth;
   middleware: typeof middleware;
   products: typeof products;
+  seed: typeof seed;
 }>;
 export declare const api: FilterApi<
   typeof fullApi,
