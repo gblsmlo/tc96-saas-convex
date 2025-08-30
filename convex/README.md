@@ -81,10 +81,21 @@ Before running seed scripts, ensure your environment variables are properly conf
    SUPER_ADMIN_PASSWORD=your-secure-password
    ```
 
-3. **Environment Variables**:
+3. **Configure Convex environment variables** in `convex.json`:
+   ```json
+   {
+     "environmentVariables": [
+       "SUPER_ADMIN_EMAIL",
+       "SUPER_ADMIN_PASSWORD"
+     ]
+   }
+   ```
+
+4. **Environment Variables**:
    - `SUPER_ADMIN_EMAIL`: Email address for the super admin user
    - `SUPER_ADMIN_PASSWORD`: Password for the super admin user (minimum 6 characters)
    - Both variables have defaults but should be customized for your environment
+   - **Important**: Variables must be declared in `convex.json` to be accessible in Convex functions
 
 ## Data Generation Details
 

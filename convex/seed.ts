@@ -1,6 +1,5 @@
 import { faker } from '@faker-js/faker'
 import { v } from 'convex/values'
-import { env } from '../src/lib/env'
 import type { Id } from './_generated/dataModel'
 import type { DatabaseWriter, MutationCtx } from './_generated/server'
 import { internalMutation } from './_generated/server'
@@ -51,7 +50,6 @@ export const populateDatabase = internalMutation({
 		console.log('👑 Creating super admin user...')
 		const superAdminId = await createSuperAdmin(ctx)
 
-		// Create accounts with users and products
 		console.log(`🏢 Creating ${accountsCount} accounts...`)
 		const accountIds = []
 
@@ -95,7 +93,6 @@ export const populateDatabase = internalMutation({
  * Clear all data from the database
  */
 async function clearDatabase(ctx: { db: DatabaseWriter }) {
-	// Delete in reverse dependency order
 	const activityLogs = await ctx.db.query('activityLogs').collect()
 	for (const log of activityLogs) {
 		await ctx.db.delete(log._id)
@@ -127,9 +124,11 @@ async function clearDatabase(ctx: { db: DatabaseWriter }) {
  */
 async function createSuperAdmin(ctx: { db: DatabaseWriter }) {
 	const now = Date.now()
+	const superAdminEmail = process.env.SUPER_ADMIN_EMAIL || 'admin@example.com'
+	const superAdminPassword = process.env.SUPER_ADMIN_PASSWORD || 'admin123'
 
 	const superAdminId = await ctx.db.insert('users', {
-		email: env.SUPER_ADMIN_EMAIL,
+		email: superAdminEmail,
 		name: 'Super Administrator',
 		avatarUrl: faker.image.avatar(),
 		role: 'SUPER_ADMIN',
@@ -140,7 +139,7 @@ async function createSuperAdmin(ctx: { db: DatabaseWriter }) {
 	})
 
 	console.log(
-		`👑 Super Admin created: ${env.SUPER_ADMIN_EMAIL} (password: ${env.SUPER_ADMIN_PASSWORD})`,
+		`👑 Super Admin created: ${superAdminEmail} (password: ${superAdminPassword})`,
 	)
 	return superAdminId
 }
@@ -157,6 +156,7 @@ async function createAccount(
 	const plans = ['FREE', 'BASIC', 'PRO', 'ENTERPRISE'] as const
 	const plan = faker.helpers.arrayElement(plans)
 
+	// Plan-based limits
 	const planLimits = {
 		FREE: { maxUsers: 3, maxProducts: 10 },
 		BASIC: { maxUsers: 10, maxProducts: 50 },
@@ -383,26 +383,24 @@ export const createSampleActivityLogs = internalMutation({
 export const quickSeed = internalMutation({
 	handler: async (ctx: MutationCtx) => {
 		faker.seed(789)
+		const superAdminEmail = process.env.SUPER_ADMIN_EMAIL || 'admin@example.com'
+		const superAdminPassword = process.env.SUPER_ADMIN_PASSWORD || 'admin123'
 
 		console.log('🚀 Quick seeding for development...')
 
-		// Create super admin
 		const superAdminId = await createSuperAdmin(ctx)
 
-		// Create one account
 		const accountId = await createAccount(ctx, superAdminId)
 
-		// Create admin user for the account
 		const adminUserId = await createUser(ctx, accountId, 'ADMIN')
 
-		// Create a few products
 		for (let i = 0; i < 5; i++) {
 			await createProduct(ctx, accountId, adminUserId)
 		}
 
 		console.log('✅ Quick seed completed!')
 		console.log(
-			`👑 Super Admin: ${env.SUPER_ADMIN_EMAIL} (password: ${env.SUPER_ADMIN_PASSWORD})`,
+			`👑 Super Admin: ${superAdminEmail} (password: ${superAdminPassword})`,
 		)
 	},
 })
