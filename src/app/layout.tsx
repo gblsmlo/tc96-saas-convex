@@ -16,7 +16,7 @@ export default function RootLayout({
 	children: React.ReactNode
 }>) {
 	return (
-		<html lang="en" className={`${fontFamily.sans} antialiased`}>
+		<html lang="en" className={`${fontFamily.sans.className} antialiased`}>
 			<body>
 				<Providers>{children}</Providers>
 			</body>
